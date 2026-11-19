@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <h3 style="margin-top:0;"><b>Administrador de Registros</b></h3>
-                <p class="text-muted">Registra los datos, genera el enlace único y descarga el archivo <code>datos.json</code> para subirlo a tu repositorio.</p>
+                <p class="text-muted">Al guardar un registro se genera el enlace único y se descarga automáticamente <code>datos.json</code> actualizado.</p>
             </div>
             <div class="col-sm-4 text-right">
                 <label class="btn btn-default btn-sm" style="margin-bottom:5px;">
@@ -162,7 +162,7 @@
         </form>
 
         <div class="link-box" id="linkResult">
-            <strong>Registro guardado. Enlace único generado:</strong>
+            <strong>Registro guardado y <code>datos.json</code> descargado. Enlace único generado:</strong>
             <div class="input-group" style="margin-top:6px;">
                 <input type="text" class="form-control" id="enlaceGenerado" readonly>
                 <span class="input-group-btn">
@@ -203,8 +203,8 @@
 
     let baseDatos = JSON.parse(localStorage.getItem('registros_db') || '{}');
 
-    // Intenta cargar datos.json si ya existe en el mismo servidor/repositorio
-    fetch('datos.json')
+    // Carga datos.json existente si está disponible en el servidor/repositorio
+    fetch('datos.json?t=' + Date.now(), { cache: 'no-store' })
         .then(r => r.ok ? r.json() : null)
         .then(data => {
             if (data && Object.keys(baseDatos).length === 0) {
@@ -226,6 +226,14 @@
 
     function guardarLocal() {
         localStorage.setItem('registros_db', JSON.stringify(baseDatos));
+    }
+
+    function descargarJson() {
+        const blob = new Blob([JSON.stringify(baseDatos, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'datos.json';
+        a.click();
     }
 
     function renderTabla() {
@@ -266,6 +274,7 @@
         baseDatos[id] = registro;
         guardarLocal();
         renderTabla();
+        descargarJson();
 
         const enlace = obtenerUrlBase() + id;
         document.getElementById('enlaceGenerado').value = enlace;
@@ -303,13 +312,7 @@
         }
     };
 
-    document.getElementById('btnDescargarJson').addEventListener('click', () => {
-        const blob = new Blob([JSON.stringify(baseDatos, null, 2)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'datos.json';
-        a.click();
-    });
+    document.getElementById('btnDescargarJson').addEventListener('click', descargarJson);
 
     document.getElementById('importJson').addEventListener('change', function(e) {
         const file = e.target.files[0];
