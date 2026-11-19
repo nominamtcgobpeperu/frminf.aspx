@@ -116,4 +116,348 @@
         .dato-fila {
             font-family: "Times New Roman", Times, serif;
             font-size: 14px;
-            font-weight: 4
+            font-weight: 400;
+            line-height: 1.75;
+            margin-bottom: 3px;
+        }
+
+        .dato-etiqueta {
+            font-family: "Times New Roman", Times, serif;
+            font-weight: 700;
+            color: #111111;
+            margin-right: 6px;
+        }
+
+        .dato-estado {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: #111111;
+        }
+
+        .placa-titulo {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 2px;
+        }
+
+        .placa-valor {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 21px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 8px;
+        }
+
+        .valor-fijo-ejes {
+            display: inline-block;
+            min-width: 115px;
+        }
+
+        .valor-fijo-peso {
+            display: inline-block;
+            min-width: 85px;
+        }
+        /****** FIN - ESTILOS GENERALES ******/
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera superior con fondo cabecera03.jpg y logotipo LogoTUC.jpg a la izquierda -->
+    <div class="header">
+        <img
+            src="LogoTUC.jpg"
+            alt="Logo MTC"
+            class="logo-mtc"
+            onerror="this.style.display='none'; document.getElementById('logoMtcFallback').style.display='flex';"
+        >
+
+        <!-- Respaldo vectorial del logo MTC únicamente para previsualización sin archivos locales -->
+        <div id="logoMtcFallback" class="logo-mtc-fallback" aria-label="Logo MTC">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 75" height="75" width="360" role="img" aria-label="PERÚ - Ministerio de Transportes y Comunicaciones">
+                <g transform="translate(6, 4)">
+                    <path id="arcoPeru" d="M 8,16 A 26,22 0 0,1 54,16" fill="none"/>
+                    <text font-family="Arial, sans-serif" font-size="4.3" font-weight="bold" fill="#333333" letter-spacing="0.3">
+                        <textPath href="#arcoPeru" startOffset="50%" text-anchor="middle">REPÚBLICA DEL PERÚ</textPath>
+                    </text>
+                    <path d="M 9,20 L 23,26 L 21,56 L 7,50 Z" fill="#C8102E"/>
+                    <path d="M 12,24 L 21,28 L 19,52 L 10,48 Z" fill="#FFFFFF"/>
+                    <path d="M 15,28 L 21,30 L 19,48 L 13,46 Z" fill="#C8102E"/>
+                    <path d="M 53,20 L 39,26 L 41,56 L 55,50 Z" fill="#C8102E"/>
+                    <path d="M 50,24 L 41,28 L 43,52 L 52,48 Z" fill="#FFFFFF"/>
+                    <path d="M 47,28 L 41,30 L 43,48 L 49,46 Z" fill="#C8102E"/>
+                    <ellipse cx="31" cy="18" rx="8.5" ry="5" fill="none" stroke="#2D6A2E" stroke-width="3.2"/>
+                    <path d="M 17,24 L 45,24 L 45,43 C 45,54 31,61 31,61 C 31,61 17,54 17,43 Z" fill="#FFFFFF" stroke="#C59B27" stroke-width="1.8"/>
+                    <path d="M 18,25 L 31,25 L 31,40 L 18,40 Z" fill="#63B1E5"/>
+                    <path d="M 23,38 L 23,33 L 25,31 L 25,28 L 27,28 L 27,32 L 28,33 L 28,38" stroke="#A66E38" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+                    <path d="M 31,25 L 44,25 L 44,40 L 31,40 Z" fill="#FFFFFF"/>
+                    <rect x="36.8" y="34" width="1.6" height="5" fill="#6E4720"/>
+                    <circle cx="37.6" cy="31.5" r="3.8" fill="#2E7D32"/>
+                    <path d="M 18,40 L 44,40 L 44,43 C 44,53 31,59.5 31,59.5 C 31,59.5 18,53 18,43 Z" fill="#D91023"/>
+                    <path d="M 24,49 C 27,44 34,43 39,45 C 36,48 30,51 24,49 Z" fill="#F2C94C"/>
+                    <path d="M 21,58 Q 31,64 41,58 L 39,63 Q 31,66 23,63 Z" fill="#C8102E"/>
+                </g>
+                <rect x="74" y="3" width="68" height="69" fill="#D91023"/>
+                <text x="108" y="46" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600" text-anchor="middle">PERÚ</text>
+                <rect x="142" y="3" width="3" height="69" fill="#FFFFFF"/>
+                <rect x="145" y="3" width="212" height="69" fill="#59595B"/>
+                <text x="157" y="25" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="16">Ministerio</text>
+                <text x="157" y="44" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="16">de Transportes</text>
+                <text x="157" y="63" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="16">y Comunicaciones</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Franja amarilla institucional completa -->
+    <div class="superior">
+        <p class="superior-texto">DIRECCIÓN DE SERVICIOS DE TRANSPORTE TERRESTRE</p>
+    </div>
+
+    <!-- Contenido principal con sistema de grillas Bootstrap 3 -->
+    <div class="container tuc-contenido">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="tuc-titulo"><span id="lblTitulo">TARJETA ÚNICA DE CIRCULACIÓN</span></h3>
+            </div>
+            <div class="col-sm-12 text-center">
+                <h3 class="tuc-constancia">N° <span id="lblnroconstancia">15M23054096E</span></h3>
+            </div>
+        </div>
+
+        <!-- Sección 1: Datos de la Habilitación Vehicular -->
+        <div class="row">
+            <div class="col-sm-12 text-left">
+                <div class="seccion-titulo">DATOS DE LA HABILITACIÓN VEHICULAR</div>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">VIGENTE DESDE:</span>
+                <span id="lblfecexp">08/11/2023</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">HASTA:</span>
+                <span id="lblfecven">08/11/2033</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-4 text-left">
+                <span class="dato-etiqueta">NOMBRE O RAZÓN SOCIAL DEL TRANSPORTISTA:</span>
+            </div>
+            <div class="col-sm-8 text-left">
+                <span id="lblrazsoc">JIMEX CONTRATISTAS S.R.L.</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">RUC:</span>
+                <span id="lblnumruc">20534821981</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">PARTIDA REGISTRAL:</span>
+                <span id="lblpartreg">15140449CNG</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-4 text-left">
+                <span class="dato-etiqueta">MODALIDAD DE SERVICIO:</span>
+            </div>
+            <div class="col-sm-8 text-left">
+                <span id="lblmodalidad">Servicio de Transporte de Mercancías Publico</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">DOCUMENTO SUSTENTO:</span>
+                <span id="lblnumresol">T-581746-2023</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">ESTADO:</span>
+                <span id="lblEstadoVeh" class="dato-estado">HABILITADO</span>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Sección 2: Datos del Vehículo -->
+        <div class="row">
+            <div class="col-sm-12 text-left">
+                <div class="seccion-titulo">DATOS DEL VEHÍCULO</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-right placa-titulo">
+                Placa N°
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-right placa-valor">
+                <span id="lblplaca">BEN912</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">MARCA</span>
+                <span id="lblmarca">SINOTRUK CDW</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta"><span id="lblTitulocarroceria">CARROCERÍA</span></span>
+                <span id="lblcarroceria">VOLQUETE</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">VIN</span>
+                <span id="lblvin">LJVH84D86KY003938</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">N° DE SERIE DE CHASIS</span>
+                <span id="lblvin2">LJVH84D86KY003938</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">COLOR</span>
+                <span id="lblcolor">BLANCO</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">N° DE ASIENTOS</span>
+                <span id="lblnumasientos">3</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">N° DE EJES</span>
+                <span id="lblejes" class="valor-fijo-ejes">2</span>
+                <span class="dato-etiqueta">AÑO MODELO</span>
+                <span id="lblaniofab">2019</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">PESO NETO (KG)</span>
+                <span id="lblpesoseco" class="valor-fijo-peso">3800</span>
+                <span class="dato-etiqueta">LARGO (MTS)</span>
+                <span id="lbllargo">5.87</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">PESO BRUTO (KG)</span>
+                <span id="lblpesobruto" class="valor-fijo-peso">9800</span>
+                <span class="dato-etiqueta">ANCHO (MTS)</span>
+                <span id="lblancho">2.06</span>
+            </div>
+        </div>
+
+        <div class="row dato-fila">
+            <div class="col-sm-12 text-left">
+                <span class="dato-etiqueta">CARGA ÚTIL (KG)</span>
+                <span id="lblpesoutil" class="valor-fijo-peso">6000</span>
+                <span class="dato-etiqueta">ALTO (MTS)</span>
+                <span id="lblalto">2.65</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parámetros ocultos/adicionales originales -->
+    <span id="param1"></span>
+    <br>
+    <span id="param2"></span>
+
+    <!-- Carga dinámica desde datos.json o localStorage -->
+    <script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (!id) return;
+
+        const mapaIds = {
+            nroconstancia: 'lblnroconstancia',
+            fecexp: 'lblfecexp',
+            fecven: 'lblfecven',
+            razsoc: 'lblrazsoc',
+            numruc: 'lblnumruc',
+            partreg: 'lblpartreg',
+            modalidad: 'lblmodalidad',
+            numresol: 'lblnumresol',
+            EstadoVeh: 'lblEstadoVeh',
+            placa: 'lblplaca',
+            marca: 'lblmarca',
+            carroceria: 'lblcarroceria',
+            vin: 'lblvin',
+            vin2: 'lblvin2',
+            color: 'lblcolor',
+            numasientos: 'lblnumasientos',
+            ejes: 'lblejes',
+            aniofab: 'lblaniofab',
+            pesoseco: 'lblpesoseco',
+            largo: 'lbllargo',
+            pesobruto: 'lblpesobruto',
+            ancho: 'lblancho',
+            pesoutil: 'lblpesoutil',
+            alto: 'lblalto'
+        };
+
+        function aplicarDatos(registro) {
+            if (!registro) return;
+            Object.keys(mapaIds).forEach(campo => {
+                const el = document.getElementById(mapaIds[campo]);
+                if (el && registro[campo] !== undefined) {
+                    el.textContent = registro[campo];
+                }
+            });
+        }
+
+        // Busca primero en datos.json (sin caché) y si se abre en local usa localStorage
+        fetch('datos.json?t=' + Date.now(), { cache: 'no-store' })
+            .then(r => r.ok ? r.json() : null)
+            .then(data => {
+                if (data && data[id]) {
+                    aplicarDatos(data[id]);
+                } else {
+                    const local = JSON.parse(localStorage.getItem('registros_db') || '{}');
+                    aplicarDatos(local[id]);
+                }
+            })
+            .catch(() => {
+                const local = JSON.parse(localStorage.getItem('registros_db') || '{}');
+                aplicarDatos(local[id]);
+            });
+    })();
+    </script>
+</body>
+</html>
