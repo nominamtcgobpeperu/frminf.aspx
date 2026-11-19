@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Registros</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body { background: #f4f6f9; padding: 20px 0; font-family: Arial, sans-serif; }
+        .panel-custom { background: #fff; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 25px; margin-bottom: 20px; }
+        .section-title { border-bottom: 2px solid #f6c918; padding-bottom: 6px; margin: 20px 0 15px; font-weight: bold; color: #333; }
+        .link-box { background: #eef6ff; border: 1px solid #b8daff; padding: 12px; border-radius: 4px; margin-top: 15px; display: none; }
+        .table-actions button { margin-right: 4px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="panel-custom">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3 style="margin-top:0;"><b>Administrador de Registros</b></h3>
+                <p class="text-muted">Registra los datos, genera el enlace único y descarga el archivo <code>datos.json</code> para subirlo a tu repositorio.</p>
+            </div>
+            <div class="col-sm-4 text-right">
+                <label class="btn btn-default btn-sm" style="margin-bottom:5px;">
+                    Importar datos.json <input type="file" id="importJson" accept=".json" style="display:none;">
+                </label>
+                <button class="btn btn-success btn-sm" id="btnDescargarJson" style="margin-bottom:5px;">
+                    Descargar datos.json
+                </button>
+            </div>
+        </div>
+
+        <form id="registroForm">
+            <input type="hidden" id="editId">
+
+            <h4 class="section-title">1. Datos de la Habilitación Vehicular</h4>
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label>N° Constancia</label>
+                    <input type="text" class="form-control" id="nroconstancia" placeholder="Ej: 15M23054096E" required>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label>Vigente Desde</label>
+                    <input type="text" class="form-control" id="fecexp" placeholder="DD/MM/AAAA" required>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label>Hasta</label>
+                    <input type="text" class="form-control" id="fecven" placeholder="DD/MM/AAAA" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Nombre o Razón Social del Transportista</label>
+                    <input type="text" class="form-control" id="razsoc" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>RUC</label>
+                    <input type="text" class="form-control" id="numruc" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Partida Registral</label>
+                    <input type="text" class="form-control" id="partreg" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5 form-group">
+                    <label>Modalidad de Servicio</label>
+                    <input type="text" class="form-control" id="modalidad" value="Servicio de Transporte de Mercancías Publico" required>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label>Documento Sustento</label>
+                    <input type="text" class="form-control" id="numresol" placeholder="Ej: T-581746-2023" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Estado</label>
+                    <select class="form-control" id="EstadoVeh">
+                        <option value="HABILITADO">HABILITADO</option>
+                        <option value="SUSPENDIDO">SUSPENDIDO</option>
+                        <option value="CANCELADO">CANCELADO</option>
+                    </select>
+                </div>
+            </div>
+
+            <h4 class="section-title">2. Datos del Vehículo</h4>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label>Placa N°</label>
+                    <input type="text" class="form-control" id="placa" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Marca</label>
+                    <input type="text" class="form-control" id="marca" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Carrocería</label>
+                    <input type="text" class="form-control" id="carroceria" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Color</label>
+                    <input type="text" class="form-control" id="color" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>VIN</label>
+                    <input type="text" class="form-control" id="vin" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>N° de Serie de Chasis</label>
+                    <input type="text" class="form-control" id="vin2" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label>N° de Asientos</label>
+                    <input type="text" class="form-control" id="numasientos" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>N° de Ejes</label>
+                    <input type="text" class="form-control" id="ejes" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Año Modelo</label>
+                    <input type="text" class="form-control" id="aniofab" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Peso Neto (KG)</label>
+                    <input type="text" class="form-control" id="pesoseco" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <label>Largo (MTS)</label>
+                    <input type="text" class="form-control" id="largo" required>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label>Peso Bruto (KG)</label>
+                    <input type="text" class="form-control" id="pesobruto" required>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label>Ancho (MTS)</label>
+                    <input type="text" class="form-control" id="ancho" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Carga Útil (KG)</label>
+                    <input type="text" class="form-control" id="pesoutil" required>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Alto (MTS)</label>
+                    <input type="text" class="form-control" id="alto" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Registro</button>
+            <button type="button" class="btn btn-default" id="btnLimpiar">Limpiar Formulario</button>
+        </form>
+
+        <div class="link-box" id="linkResult">
+            <strong>Registro guardado. Enlace único generado:</strong>
+            <div class="input-group" style="margin-top:6px;">
+                <input type="text" class="form-control" id="enlaceGenerado" readonly>
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" id="btnCopiar">Copiar enlace</button>
+                    <a class="btn btn-default" id="btnAbrir" target="_blank">Abrir vista</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-custom">
+        <h4 style="margin-top:0;"><b>Registros Guardados (<span id="totalRegistros">0</span>)</b></h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Constancia</th>
+                        <th>Placa</th>
+                        <th>Razón Social</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaRegistros"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const campos = [
+        'nroconstancia', 'fecexp', 'fecven', 'razsoc', 'numruc', 'partreg',
+        'modalidad', 'numresol', 'EstadoVeh', 'placa', 'marca', 'carroceria',
+        'vin', 'vin2', 'color', 'numasientos', 'ejes', 'aniofab',
+        'pesoseco', 'largo', 'pesobruto', 'ancho', 'pesoutil', 'alto'
+    ];
+
+    let baseDatos = JSON.parse(localStorage.getItem('registros_db') || '{}');
+
+    // Intenta cargar datos.json si ya existe en el mismo servidor/repositorio
+    fetch('datos.json')
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+            if (data && Object.keys(baseDatos).length === 0) {
+                baseDatos = data;
+                guardarLocal();
+                renderTabla();
+            }
+        })
+        .catch(() => {});
+
+    function generarIdUnico() {
+        return Math.random().toString(36).substring(2, 10).toUpperCase();
+    }
+
+    function obtenerUrlBase() {
+        const url = window.location.href;
+        return url.substring(0, url.lastIndexOf('/') + 1) + 'tuc.html?id=';
+    }
+
+    function guardarLocal() {
+        localStorage.setItem('registros_db', JSON.stringify(baseDatos));
+    }
+
+    function renderTabla() {
+        const tbody = document.getElementById('tablaRegistros');
+        const keys = Object.keys(baseDatos);
+        document.getElementById('totalRegistros').textContent = keys.length;
+        tbody.innerHTML = '';
+
+        keys.forEach(id => {
+            const item = baseDatos[id];
+            const enlace = obtenerUrlBase() + id;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><code>${id}</code></td>
+                <td>${item.nroconstancia || ''}</td>
+                <td><b>${item.placa || ''}</b></td>
+                <td>${item.razsoc || ''}</td>
+                <td>${item.EstadoVeh || ''}</td>
+                <td class="table-actions">
+                    <a href="${enlace}" target="_blank" class="btn btn-xs btn-info">Ver</a>
+                    <button class="btn btn-xs btn-default" onclick="copiarTexto('${enlace}')">Copiar URL</button>
+                    <button class="btn btn-xs btn-warning" onclick="editarRegistro('${id}')">Editar</button>
+                    <button class="btn btn-xs btn-danger" onclick="eliminarRegistro('${id}')">Eliminar</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.getElementById('registroForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const editId = document.getElementById('editId').value;
+        const id = editId || generarIdUnico();
+
+        const registro = {};
+        campos.forEach(c => registro[c] = document.getElementById(c).value.trim());
+
+        baseDatos[id] = registro;
+        guardarLocal();
+        renderTabla();
+
+        const enlace = obtenerUrlBase() + id;
+        document.getElementById('enlaceGenerado').value = enlace;
+        document.getElementById('btnAbrir').href = enlace;
+        document.getElementById('linkResult').style.display = 'block';
+        document.getElementById('editId').value = '';
+    });
+
+    document.getElementById('btnLimpiar').addEventListener('click', () => {
+        document.getElementById('registroForm').reset();
+        document.getElementById('editId').value = '';
+    });
+
+    document.getElementById('btnCopiar').addEventListener('click', () => {
+        copiarTexto(document.getElementById('enlaceGenerado').value);
+    });
+
+    function copiarTexto(texto) {
+        navigator.clipboard.writeText(texto).then(() => alert('Enlace copiado al portapapeles'));
+    }
+
+    window.editarRegistro = function(id) {
+        const item = baseDatos[id];
+        if (!item) return;
+        document.getElementById('editId').value = id;
+        campos.forEach(c => document.getElementById(c).value = item[c] || '');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.eliminarRegistro = function(id) {
+        if (confirm('¿Eliminar este registro?')) {
+            delete baseDatos[id];
+            guardarLocal();
+            renderTabla();
+        }
+    };
+
+    document.getElementById('btnDescargarJson').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(baseDatos, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'datos.json';
+        a.click();
+    });
+
+    document.getElementById('importJson').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            try {
+                baseDatos = JSON.parse(evt.target.result);
+                guardarLocal();
+                renderTabla();
+                alert('Archivo datos.json cargado correctamente.');
+            } catch {
+                alert('El archivo no es un JSON válido.');
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    renderTabla();
+</script>
+</body>
+</html>
