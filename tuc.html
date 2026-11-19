@@ -1,60 +1,119 @@
-<script>
-    (function() {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
-        if (!id) return;
+<!DOCTYPE html>
+<html lang="es">
+<head id="Head1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Nacional de Nómina de Conductores</title>
 
-        const mapaIds = {
-            nroconstancia: 'lblnroconstancia',
-            fecexp: 'lblfecexp',
-            fecven: 'lblfecven',
-            razsoc: 'lblrazsoc',
-            numruc: 'lblnumruc',
-            partreg: 'lblpartreg',
-            modalidad: 'lblmodalidad',
-            numresol: 'lblnumresol',
-            EstadoVeh: 'lblEstadoVeh',
-            placa: 'lblplaca',
-            marca: 'lblmarca',
-            carroceria: 'lblcarroceria',
-            vin: 'lblvin',
-            vin2: 'lblvin2',
-            color: 'lblcolor',
-            numasientos: 'lblnumasientos',
-            ejes: 'lblejes',
-            aniofab: 'lblaniofab',
-            pesoseco: 'lblpesoseco',
-            largo: 'lbllargo',
-            pesobruto: 'lblpesobruto',
-            ancho: 'lblancho',
-            pesoutil: 'lblpesoutil',
-            alto: 'lblalto'
-        };
+    <!-- Bootstrap 3.4.1 vía CDN para conservar intacto el sistema de grillas original -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-        function aplicarDatos(registro) {
-            if (!registro) return;
-            Object.keys(mapaIds).forEach(campo => {
-                const el = document.getElementById(mapaIds[campo]);
-                if (el && registro[campo] !== undefined) {
-                    el.textContent = registro[campo];
-                }
-            });
+    <style>
+        /****** INI - ESTILOS GENERALES ******/
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, "MS Sans Serif", sans-serif;
+            color: #222222;
         }
 
-        // Busca primero en datos.json (sin caché) y si se abre en local usa localStorage
-        fetch('datos.json?t=' + Date.now(), { cache: 'no-store' })
-            .then(r => r.ok ? r.json() : null)
-            .then(data => {
-                if (data && data[id]) {
-                    aplicarDatos(data[id]);
-                } else {
-                    const local = JSON.parse(localStorage.getItem('registros_db') || '{}');
-                    aplicarDatos(local[id]);
-                }
-            })
-            .catch(() => {
-                const local = JSON.parse(localStorage.getItem('registros_db') || '{}');
-                aplicarDatos(local[id]);
-            });
-    })();
-    </script>
+        /* Fondo general con imagen local bg1.jpg y respaldo visual de líneas verticales */
+        body {
+            background-color: #ffffff;
+            background-image: url("bg1.jpg"), repeating-linear-gradient(90deg, #f3f3f3 0px, #f3f3f3 1px, #ffffff 1px, #ffffff 5px);
+            background-repeat: repeat;
+            background-position: top left;
+        }
+
+        /* Cabecera superior con imagen de fondo cabecera03.jpg y respaldo degradado celeste */
+        .header {
+            width: 100%;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            background-image: url("cabecera03.jpg"), linear-gradient(105deg, #ffffff 30%, #d4e8f8 65%, #7fb2e5 100%);
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        /* Logotipo MTC pegado a la parte superior izquierda sin ocupar todo el ancho */
+        .logo-mtc {
+            height: 100%;
+            max-height: 75px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Respaldo SVG visible únicamente si LogoTUC.jpg no se encuentra en la vista previa */
+        .logo-mtc-fallback {
+            height: 100%;
+            width: auto;
+            display: none;
+            align-items: center;
+            background-color: #ffffff;
+            padding-right: 4px;
+        }
+
+        /* Franja amarilla institucional completa sin márgenes extra */
+        .superior {
+            background-color: #f6c918;
+            width: 100%;
+            padding: 10px 20px;
+            margin: 0;
+            text-align: left;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .superior-texto {
+            margin: 0;
+            font-family: Arial, "MS Sans Serif", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #222222;
+            letter-spacing: 0.2px;
+        }
+
+        /* Contenedor principal de datos */
+        .tuc-contenido {
+            padding-top: 20px;
+            padding-bottom: 35px;
+        }
+
+        .tuc-titulo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #222222;
+            margin: 8px 0 4px 0;
+        }
+
+        .tuc-constancia {
+            font-size: 22px;
+            font-weight: 700;
+            color: #222222;
+            margin: 4px 0 22px 0;
+        }
+
+        .seccion-titulo {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: underline;
+            margin-top: 10px;
+            margin-bottom: 12px;
+            color: #111111;
+        }
+
+        .dato-fila {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 14px;
+            font-weight: 4
